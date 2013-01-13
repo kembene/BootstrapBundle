@@ -1,0 +1,23 @@
+{% block navBar %}
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                {% block navBarColBtn %}
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                {% endblock %}
+                {% block navBarBrand%}
+                    {% if brandName is defined %}
+                        <a class="brand" href="#">{{brandName|raw}}</a>
+                    {% endif%}
+                {% endblock%}
+                <div class="nav-collapse collapse">
+                    {{ knp_menu_render(menuName,knp_menu_options) }}
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+{% endblock%}

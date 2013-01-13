@@ -1,0 +1,22 @@
+parameters:
+#    kinwae_bootstrap.example.class: Kinwae\BootstrapBundle\Example
+
+services:
+    kinwae_bootstrap.menu_builder:
+          class: Kinwae\BootstrapBundle\Services\MenuBuilder
+          arguments: ["@knp_menu.factory"]
+
+    kinwae_bootstrap.twig_extension:
+              class: Kinwae\BootstrapBundle\Twig\TwigBootstrapExtension
+              arguments: ["@service_container"]
+              tags:
+                  - {name: twig.extension}
+
+    kinwae_bootstrap.main_menu:
+        class: Knp\Menu\MenuItem # the service definition requires setting the class
+        factory_service: kinwae_bootstrap.menu_builder
+        factory_method: createMainMenu
+        arguments: ["@service_container"]
+        scope: request # needed as we have the request as a dependency here
+        tags:
+            - { name: knp_menu.menu, alias: kinwae_bootstrap_main } # The alias is what is used to retrieve the menu

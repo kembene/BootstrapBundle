@@ -1,0 +1,43 @@
+{% macro alert(message, type, close, raw, class, domain) %}
+    <div class="alert{{ type ? ' alert-'~type : '' }} fade in {{ class|default('') }}">
+        {% if close|default(false) %}
+            <button type="button" class="close" data-dismiss="alert" href="#">&times;</button>
+        {% endif %}
+        {% if raw|default(false) %}
+            {{ message|trans({}, domain|default('messages'))|raw }}
+        {% else %}
+            {{ message|trans({}, domain|default('messages')) }}
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro alert_enhanced(message, heading, type, close, raw, class, domain) %}
+<div class="alert{{ type ? ' alert-'~type : '' }} alert-block fade in {{ class|default('') }}">
+
+    {% if close|default(false) %}
+        <button type="button" class="close" data-dismiss="alert" href="#">&times;</button>
+    {% endif %}
+
+    {% if heading|default(false) %}
+        <h4 class="alert-heading">{{ heading }}</h4>
+    {% endif %}
+
+    {% if raw|default(false) %}
+        {{ message|trans({}, domain|default('messages'))|raw }}
+    {% else %}
+        {{ message|trans({}, domain|default('messages')) }}
+    {% endif %}
+</div>
+{% endmacro %}
+
+{% macro session_flash(close, raw, class, domain) %}
+    {% import _self as flash_messages %}
+
+    {% if app.session.flashbag.peekAll|length > 0 %}
+        {% for type, messages in app.session.flashbag.all %}
+            {% for message in messages %}
+                {{ flash_messages.alert(message, type, close, use_raw, class, domain) }}
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+{% endmacro %}

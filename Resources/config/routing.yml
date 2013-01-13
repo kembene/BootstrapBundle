@@ -1,0 +1,4 @@
+_bootstrap_index:
+        pattern:  /kinwae/bootstrap
+        defaults: { _controller: KinwaeBootstrapBundle:Default:index }
+        type:     annotation

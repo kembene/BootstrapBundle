@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+{% import "KinwaeBootstrapBundle::alert.html.twig" as flashes %}
+    {% block headsection %}
+        <head>
+                {% block headtitle %}
+                    <title>Bootstrap Page</title>
+                {% endblock %}
+
+                {% block stylesheets %}
+                    {% stylesheets "assets/bootstrap/less/bootstrap.less" filter="cssrewrite"%}
+                        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+                    {% endstylesheets %}
+
+                    <style type="text/css">
+                        body {
+                            padding-top: 60px;
+                            padding-bottom: 40px;
+                        }
+                    </style>
+
+                    {% stylesheets "assets/bootstrap/less/responsive.less" %}
+                        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+                    {% endstylesheets %}
+            {% endblock %}
+
+            <!-- Fav and touch icons -->
+            {% block appletouchicon %}
+                <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset("assets/bootstrap/assets/ico/apple-touch-icon-144-precomposed.png")}}">
+                <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset("assets/bootstrap/assets/ico/apple-touch-icon-114-precomposed.png")}}">
+                <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset("assets/bootstrap/assets/ico/apple-touch-icon-72-precomposed.png")}}">
+                <link rel="apple-touch-icon-precomposed" href="{{asset("assets/bootstrap//assets/ico/apple-touch-icon-57-precomposed.png")}}">
+            {% endblock%}
+
+            <!-- Favicon -->
+            {% block favico %}
+                <link rel="shortcut icon" href="{{asset("bundles/kinwaebootstrap/images/logo.ico")}}">
+            {% endblock%}
+        </head>
+    {% endblock %}
+
+    <body>
+
+    {{kinwae_bootstrap_navbar("kinwae_bootstrap_main", {"knp_menu_options":{"allow_safe_labels":true},"brandName":"Bootstrap Bundle"})}}
+
+    {{flashes.alert("Hello",null,true)}}
+    <img src="{{asset('bundles/acmedemo/images/logo.gif')}}" class="img-polaroid">
+
+    <strong><i class="icon-search"></i> Sample</strong>
+        {% block foot_script %}
+        {% javascripts
+            'assets/bootstrap/js/jquery.js'
+            'assets/bootstrap/js/bootstrap-dropdown.js'
+            'assets/bootstrap/js/bootstrap-alert.js'
+        %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock foot_script %}
+
+    </body>
+</html>
